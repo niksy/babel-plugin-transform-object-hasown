@@ -2,90 +2,57 @@
 
 [![Build Status][ci-img]][ci]
 
-Babel plugin for transforming `Object.hasOwn`.
+Babel plugin for transforming
+[`Object.hasOwn`](https://github.com/tc39/proposal-accessible-object-hasownproperty).
 
 ## Install
 
 ```sh
-npm install babel-plugin-transform-object-hasown --save
+npm install babel-plugin-transform-object-hasown --save-dev
 ```
 
 ## Usage
 
-```js
-// Module usage
+Use it via available [plugin activation options][babel-plugins].
+
+For `.babelrc` file:
+
+```json
+{
+	"plugins": ["babel-plugin-transform-object-hasown"]
+}
 ```
 
-More usage examples.
+Then, in your code:
 
-## API
+```js
+const object = {};
 
-### methodName(arg, [optionalArg])
+if (Object.hasOwn(object, 'becky')) {
+	console.log('has property becky');
+}
+```
 
-Returns: `Mixed`
+After transformation:
 
-Method description.
+```js
+var _objectHasOwn = function (object, property) {
+	return Object.prototype.hasOwnProperty.call(object, property);
+};
 
-#### arg
+const object = {};
 
-Type: `Mixed`
+if (_objectHasOwn(object, 'becky')) {
+	console.log('has property becky');
+}
+```
 
-arg description.
+Check test fixtures ([actual](test/fixtures/all.js) and
+[expected](test/fixtures/all.expected.js)) for more examples.
 
-#### optionalArg
+## Caveats
 
-Type: `Object`
-
-optionalArg description.
-
-##### prop1
-
-Type: `String`  
-Default: `'3'`
-
-`prop1` description.
-
-##### prop2
-
-Type: `Number`  
-Default: `3`
-
-##### prop3
-
-Type: `Number[]`  
-Default: `[1, 2, 3]`
-
-##### prop4
-
-Type: `Number[]` `String[]`  
-Default: `['1', '2', '3']`
-
-`prop4` description.
-
-##### prop5
-
-Type: `Function`  
-Default: `noop`
-
-`prop5` description.
-
-Function arguments:
-
--   **arg1** `String` arg1 description
--   **arg2** `Number` arg2 description
--   **arg3** `Element` `Boolean` arg3 description
-
-> Alternative approach
-
-| Property | Type                  | Default           | Description                                              |
-| -------- | --------------------- | ----------------- | -------------------------------------------------------- |
-| `prop1`  | `String`              | `'3'`             | `prop1` description.                                     |
-| `prop2`  | `Number`              | `3`               | `prop2` description.                                     |
-| `prop3`  | `Number[]`            | `[1, 2, 3]`       | `prop3` description.                                     |
-| `prop4`  | `Number[]` `String[]` | `['1', '2', '3']` | `prop4` description.                                     |
-| `prop5`  | `Function`            | `noop`            | `prop5` description. (No function arguments description) |
-
----
+Will only work with code of the form `Object.hasOwn` or `Object['hasOwn']`.
 
 ## License
 
@@ -95,5 +62,6 @@ MIT © [Ivan Nikolić](http://ivannikolic.com)
 
 [ci]: https://travis-ci.com/niksy/babel-plugin-transform-object-hasown
 [ci-img]: https://travis-ci.com/niksy/babel-plugin-transform-object-hasown.svg?branch=master
+[babel-plugins]: http://babeljs.io/docs/plugins/
 
 <!-- prettier-ignore-end -->
