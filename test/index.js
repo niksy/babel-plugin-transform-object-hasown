@@ -13,7 +13,7 @@ async function runTest(testCase, options = {}) {
 	assert.equal(actual.code.trim(), expected.trim());
 }
 
-it('should transform `globalThis`', function () {
+it('should transform `Object.hasOwn`', function () {
 	return runTest('all');
 });
 

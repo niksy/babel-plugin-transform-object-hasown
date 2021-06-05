@@ -1,5 +1,9 @@
 var _objectHasOwn = function (object, property) {
-  return Object.prototype.hasOwnProperty.call(object, property);
+  if (typeof object === 'undefined' || object === null) {
+    throw new TypeError('Cannot convert undefined or null to object');
+  }
+
+  return Object.prototype.hasOwnProperty.call(Object(object), property);
 };
 
 const object = {};
