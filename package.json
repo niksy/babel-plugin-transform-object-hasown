@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-object-hasown",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Babel plugin for transforming `Object.hasOwn`.",
   "license": "MIT",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
